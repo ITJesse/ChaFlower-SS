@@ -9,10 +9,11 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
 ADD ./assets/sources.list.trusty /etc/apt/sources.list
 
 RUN apt-get update && apt-get -y upgrade
-RUN apt-get install -y build-essential autoconf libtool libssl-dev \
-    gawk debhelper dh-systemd init-system-helpers pkg-config git apg supervisor
+RUN apt-get install -y --no-install-recommends build-essential autoconf libtool libssl-dev \
+    gawk debhelper dh-systemd init-system-helpers pkg-config asciidoc xmlto apg libpcre3-dev
 
-RUN git clone https://github.com/shadowsocks/shadowsocks-libev.git \
+RUN apt-get install -y git \
+	&& git clone --depth=1 https://github.com/shadowsocks/shadowsocks-libev.git \
 	&& cd shadowsocks-libev \
 	&& dpkg-buildpackage -b -us -uc -i \
 	&& cd .. \
@@ -21,6 +22,8 @@ RUN git clone https://github.com/shadowsocks/shadowsocks-libev.git \
 RUN apt-get purge -y build-essential autoconf libtool \
 	gawk debhelper dh-systemd pkg-config git \
 	&& rm -rf /usr/local/src/*
+
+RUN apt-get install -y supervisor
 
 RUN apt-get autoremove --purge -y \
 	&& apt-get clean \
@@ -32,7 +35,7 @@ COPY /assets/config.json /etc/shadowsocks-libev/config.json
 ADD /assets/start.sh /start.sh
 RUN chmod +x /start.sh
 
-EXPOSE 995
+EXPOSE 1080
 
 CMD ["/start.sh"]
 
