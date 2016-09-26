@@ -8,16 +8,18 @@ WORKDIR /usr/local/src/
 # RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
 # ADD ./assets/sources.list.trusty /etc/apt/sources.list
 
-RUN apt-get update && apt-get install -y build-essential autoconf libtool libssl-dev \
-    gawk debhelper dh-systemd init-system-helpers pkg-config asciidoc xmlto apg libpcre3-dev git supervisor \
+ENV VERSION v2.5.3
 
-	&& git clone --depth=1 https://github.com/shadowsocks/shadowsocks-libev.git \
-	&& cd shadowsocks-libev \
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential autoconf libtool libssl-dev \
+    gawk debhelper dh-systemd init-system-helpers pkg-config asciidoc xmlto apg libpcre3-dev \
+	&& apt-get install -y wget \
+
+	&& wget  https://github.com/shadowsocks/shadowsocks-libev/archive/${VERSION}.tar.gz \
+	&& tar zxvf ${VERSION}.tar.gz && cd ${VERSION} \
 	&& dpkg-buildpackage -b -us -uc -i \
-	&& cd .. \
-	&& dpkg -i shadowsocks-libev*.deb \
+	&& dpkg -i ../shadowsocks-libev*.deb \
 
-	&& apt-get purge -y build-essential autoconf libtool gawk debhelper dh-systemd pkg-config git \
+	&& apt-get purge -y build-essential autoconf libtool gawk debhelper dh-systemd pkg-config wget \
 	&& rm -rf /usr/local/src/* \
 
 	&& apt-get autoremove --purge -y \
