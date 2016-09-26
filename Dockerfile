@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends build-essential
 	&& apt-get install -y wget \
 
 	&& wget  https://github.com/shadowsocks/shadowsocks-libev/archive/v${VERSION}.tar.gz \
-	&& tar zxvf v${VERSION}.tar.gz && cd shadowsocks-libev-v${VERSION} \
+	&& tar zxvf v${VERSION}.tar.gz && cd shadowsocks-libev-${VERSION} \
 	&& dpkg-buildpackage -b -us -uc -i \
 	&& dpkg -i ../shadowsocks-libev*.deb \
 
