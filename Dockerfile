@@ -15,10 +15,10 @@ RUN apt-get update && apt-get install -y build-essential autoconf libtool libssl
 	&& cd shadowsocks-libev \
 	&& dpkg-buildpackage -b -us -uc -i \
 	&& cd .. \
-	&& dpkg -i shadowsocks-libev*.deb
+	&& dpkg -i shadowsocks-libev*.deb \
 
 	&& apt-get purge -y build-essential autoconf libtool gawk debhelper dh-systemd pkg-config git \
-	&& rm -rf /usr/local/src/*
+	&& rm -rf /usr/local/src/* \
 
 	&& apt-get autoremove --purge -y \
 	&& apt-get clean \
