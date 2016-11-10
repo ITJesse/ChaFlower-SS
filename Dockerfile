@@ -11,9 +11,10 @@ WORKDIR /usr/local/src/
 ENV VERSION 2.5.6
 
 RUN apt-get update && apt-get install -y --no-install-recommends build-essential autoconf libtool libssl-dev \
-    gawk debhelper dh-systemd init-system-helpers pkg-config asciidoc xmlto apg libpcre3-dev wget supervisor\
+    gawk debhelper dh-systemd init-system-helpers pkg-config asciidoc xmlto apg libpcre3-dev \
+    	&& apt-get install wget supervisor \
 
-	&& wget  https://github.com/shadowsocks/shadowsocks-libev/archive/v${VERSION}.tar.gz \
+	&& wget https://github.com/shadowsocks/shadowsocks-libev/archive/v${VERSION}.tar.gz \
 	&& tar zxvf v${VERSION}.tar.gz && cd shadowsocks-libev-${VERSION} \
 	&& dpkg-buildpackage -b -us -uc -i \
 	&& dpkg -i ../shadowsocks-libev*.deb \
