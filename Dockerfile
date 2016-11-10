@@ -27,8 +27,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends build-essential
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN mkdir -p /var/log/supervisor
-COPY /assets/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY /assets/config.json /etc/shadowsocks-libev/config.json
+COPY /assets/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ADD /assets/start.sh /start.sh
 RUN chmod +x /start.sh
 
