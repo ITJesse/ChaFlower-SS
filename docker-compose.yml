@@ -3,7 +3,7 @@ shadowsocks-client:
   ports:
   - "1080:1080"
   environment:
-  - SERVER_IP=sg.xu1s.com
-  - SERVER_PASSWORD=baccano
+  - SERVER_IP=
+  - SERVER_PASSWORD=
   - SERVER_METHOD=chacha20
   restart: always
