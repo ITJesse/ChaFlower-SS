@@ -8,11 +8,10 @@ WORKDIR /usr/local/src/
 # RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
 # ADD ./assets/sources.list.trusty /etc/apt/sources.list
 
-ENV VERSION 2.5.3
+ENV VERSION 2.5.6
 
 RUN apt-get update && apt-get install -y --no-install-recommends build-essential autoconf libtool libssl-dev \
-    gawk debhelper dh-systemd init-system-helpers pkg-config asciidoc xmlto apg libpcre3-dev \
-	&& apt-get install -y wget \
+    gawk debhelper dh-systemd init-system-helpers pkg-config asciidoc xmlto apg libpcre3-dev wget supervisor\
 
 	&& wget  https://github.com/shadowsocks/shadowsocks-libev/archive/v${VERSION}.tar.gz \
 	&& tar zxvf v${VERSION}.tar.gz && cd shadowsocks-libev-${VERSION} \
