@@ -2,8 +2,8 @@
     "server":"{{server}}",
     "server_port":995,
     "local_port":1080,
-    "local_address":"0.0.0.0",
+    "local_address":"{{local}}",
     "password":"{{password}}",
-    "timeout":60,
+    "timeout":{{timeout}},
     "method":"{{method}}"
 }
